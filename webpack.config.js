@@ -6,6 +6,8 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+require('dotenv').config();
+
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production'
     return {
@@ -68,8 +70,8 @@ module.exports = (env, argv) => {
             new ManifestPlugin(),
         ],
         devServer: {
-            host: 'localhost',
-            port: 8090,
+            host: process.env.NODE_SERVER_HOST || 'localhost',
+            port: process.env.WEBPACK_DEV_PORT || 8090,
             contentBase: 'public',
             disableHostCheck: true,
             headers: {
